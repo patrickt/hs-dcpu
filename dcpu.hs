@@ -4,7 +4,6 @@ import Control.Applicative
 import Control.Monad
 import Control.Monad.Identity
 import Control.Monad.State.Strict
-import Data.Array.Unboxed
 import Data.Bits
 import Data.Word hiding (Word)
 import Debug.Trace
@@ -12,16 +11,14 @@ import Text.ParserCombinators.Parsec
 import Text.PrettyPrint hiding (ptext)
 import Text.Printf
 
+import Core
+
 class Pretty a where
   pretty :: a -> Doc
 
--- words are 16 bits, pretty-printed in hexadecimal
-type Word = Word16
 instance Pretty Word where
   pretty a = text $ printf "%04x" a
 
--- RAM is a contiguous array of words.
-type RAM = UArray Word Word
 instance Pretty RAM where
   pretty ramArray   = vcat $ renderChunk <$> [0, 8 .. limit ] 
     where
@@ -29,24 +26,9 @@ instance Pretty RAM where
       octet pos       = map go [pos..pos+7] where go n = pretty $ (ramArray ! n)
       renderChunk pos = pretty pos <> colon <+> hsep (octet pos)
     
-data Register 
-  = RA
-  | RB
-  | RC
-  | RX
-  | RY 
-  | RZ 
-  | RI 
-  | RJ
-  | PC
-  | SP 
-  | OF
-  deriving (Show, Eq, Ord, Enum, Ix)
-  
 instance Pretty Register where
   pretty = text . show
 
-type Slots = UArray Register Word
 
 instance Pretty Slots where
   pretty slots = vcat $ go <$> [RA .. OF] where
@@ -98,13 +80,6 @@ writeValue (Imm loc) val =  writeMemory loc val
 -- A CPU is stateful. Stateful computations run inside the DCPU monad.
 type DCPU a = StateT CPU Identity a
 
-tick :: DCPU ()
-tick = do
-  pc <- getRegister PC
-  instruction <- getOpcode pc
-  if (instruction == 0xfffe)
-    then return ()
-    else step >> tick
 
 step ::  DCPU ()
 step = do
