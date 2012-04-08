@@ -14,8 +14,25 @@ module Parser
   
   data Operand 
     = AsmLiteral Int
-    | AOperand
-    | 
+    | AsmRegister Register
+    | AsmReference Operand
+    | AsmLabel String
   
-  assemble :: FilePath -> Either RAM 
+  label, register, reference, literal, operand :: Parser Operand
+  label = AsmLabel <$> identifier
+  register = AsmRegister <$> reg
+  reference = AsmReference <$> brackets $ operand
+  literal = AsmLiteral <$> hexInt
+  operand = choice [ reference, register, label, literal ]
+  
+  opcode :: Parser Opcode
+  
+  instruction :: Parser Instruction
+  instruction = Instruction <$> opcode <*> operand <*> operand 
+  
+  assemble :: FilePath -> Either String RAM
+  assemble = undefined
+  
+  identifier = undefined
+  brackets = undefined
   
