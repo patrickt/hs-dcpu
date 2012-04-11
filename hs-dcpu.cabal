@@ -18,10 +18,12 @@ Executable hdasm
     Hs-source-dirs: src
     Main-is: dcpu.hs
     Build-depends: array >= 0.3,
+                   attoparsec >= 0.10.1.0,
                    base >= 4.2,
                    mtl >= 2,
                    pretty == 1.0.1.2,
                    parsec >= 3
+    Extensions: OverloadedStrings
     Default-language: Haskell2010
 
 Test-suite test-dcpu:

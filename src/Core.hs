@@ -3,11 +3,15 @@ module Core
   , RAM 
   , Register (..)
   , Slots
+  , module Control.Applicative
+  , module Control.Monad
   , module Data.Array.Unboxed
   , module Data.Word
   )
 where 
   
+  import Control.Applicative
+  import Control.Monad
   import Data.Array.Unboxed
   import Data.Word hiding (Word)
   

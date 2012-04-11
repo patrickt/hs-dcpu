@@ -7,12 +7,12 @@ import Control.Monad.State.Strict
 import Data.Bits
 import Data.Word hiding (Word)
 import Debug.Trace
-import Text.ParserCombinators.Parsec
 import Text.PrettyPrint hiding (ptext)
 import Text.Printf
 
 import Core
 import Pretty
+import Parser
 
 -- the CPU has RAM and registers 
 data CPU = CPU 
