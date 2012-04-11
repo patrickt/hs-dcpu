@@ -1,0 +1,37 @@
+Name:                hs-dcpu
+Version:             0.0.1
+Synopsis:            an assembler and VM for the DCPU-16
+
+License:             BSD3
+Author:              Patrick Thomson
+Maintainer:          patrick.william.thomson@gmail.com
+Copyright:           (c) 2012 Patrick Thomson
+
+Category:            Compilers/Interpeters
+Stability:           alpha
+Tested-with:         GHC
+Build-type:          Simple
+Cabal-version:       >= 1.10
+
+Executable hdasm
+    Ghc-options: -fwarn-tabs -Wall
+    Hs-source-dirs: src
+    Main-is: dcpu.hs
+    Build-depends: array >= 0.3,
+                   base >= 4.2,
+                   mtl >= 2,
+                   pretty == 1.0.1.2,
+                   parsec >= 3
+    Default-language: Haskell2010
+
+Test-suite test-dcpu:
+    Type: exitcode-stdio-1.0
+    Ghc-options: -fwarn-tabs -Wall
+    Hs-source-dirs: src test
+    Main-is: DCPUTests.hs
+    Default-language: Haskell2010
+    Build-depends: array >= 0.3,
+                   base >= 4.2,
+                   mtl >= 2,
+                   pretty == 1.0.1.2,
+                   parsec >= 3

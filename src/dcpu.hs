@@ -12,27 +12,7 @@ import Text.PrettyPrint hiding (ptext)
 import Text.Printf
 
 import Core
-
-class Pretty a where
-  pretty :: a -> Doc
-
-instance Pretty Word where
-  pretty a = text $ printf "%04x" a
-
-instance Pretty RAM where
-  pretty ramArray   = vcat $ renderChunk <$> [0, 8 .. limit ] 
-    where
-      limit           = (snd $ bounds ramArray) - 8
-      octet pos       = map go [pos..pos+7] where go n = pretty $ (ramArray ! n)
-      renderChunk pos = pretty pos <> colon <+> hsep (octet pos)
-    
-instance Pretty Register where
-  pretty = text . show
-
-
-instance Pretty Slots where
-  pretty slots = vcat $ go <$> [RA .. OF] where
-    go reg = pretty reg <> colon <+> pretty (slots ! reg)
+import Pretty
 
 -- the CPU has RAM and registers 
 data CPU = CPU 
@@ -47,7 +27,6 @@ instance Pretty CPU where
 -- this should really be an Arrow
 runCPU :: DCPU a -> (a, CPU)
 runCPU a = runState a mkCPU
-
 
 mkCPU :: CPU
 mkCPU = CPU 
