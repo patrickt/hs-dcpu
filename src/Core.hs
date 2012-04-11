@@ -36,4 +36,17 @@ where
     | PC
     | SP 
     | OF
-    deriving (Show, Eq, Ord, Enum, Ix)
+    deriving (Eq, Ord, Enum, Ix)
+  
+  instance Show Register where
+    show RA = "A"
+    show RB = "B"
+    show RC = "C"
+    show RX = "X"
+    show RY = "Y"
+    show RZ = "Z"
+    show RI = "I"
+    show RJ = "J"
+    show PC = "PC"
+    show SP = "SP"
+    show OF = "O"

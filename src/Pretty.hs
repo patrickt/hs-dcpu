@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeSynonymInstances #-} -- get rid of this
+{-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-} -- get rid of this
 
 module Pretty where 
   
