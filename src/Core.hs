@@ -42,7 +42,7 @@ where
     | PC
     | SP 
     | OF
-    deriving (Eq, Ord, Enum, Ix)
+    deriving (Eq, Ord, Enum, Bounded, Ix)
   
   instance Show Register where
     show RA = "A"
@@ -63,3 +63,4 @@ where
   
   bshow :: (Show a) => a -> ByteString
   bshow = pack <$> show
+  

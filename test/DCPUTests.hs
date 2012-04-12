@@ -13,6 +13,13 @@ module Main where
   import Text.Printf
   import Prelude hiding ((++))
   
+  instance Arbitrary Register  where
+    arbitrary = elements [ minBound .. maxBound ]
+    
+  
+  instance Arbitrary Opcode where
+    arbitrary = elements [ minBound .. maxBound ]  
+  
   (?==) :: (Eq a, Show a) => a -> a -> Property
   a ?== b 
     | a == b = property True
@@ -21,6 +28,8 @@ module Main where
   parserTests :: [Test]
   parserTests = [ testProperty "decimal constants" prop_integers
                 , testProperty "hexadecimal constants" prop_hexIntegers 
+                , testProperty "registers" prop_registers
+                , testProperty "opcodes" prop_opcodes
                 ]
   
   prop_hexIntegers :: Property
@@ -39,6 +48,18 @@ module Main where
       Right (AsmLiteral n) -> n ?== input
       Right d -> fail $ printf "Unexpected result: `%s`" $ show d
       Left s -> fail $ printf "Parse error: %s" s
+  
+  prop_registers :: Property
+  prop_registers = prop_roundtrip register AsmRegister
+  
+  prop_opcodes :: Property
+  prop_opcodes = prop_roundtrip opcode id
+  
+  prop_roundtrip p c = do 
+    r <- arbitrary
+    case parseOnly p $ bshow r of
+      Right r' -> c r ?== r'
+      Left s  -> fail $ printf "Parse error: %s" s
   
   tests :: [Test]
   tests = [ testGroup "parsing" parserTests ]
