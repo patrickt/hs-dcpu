@@ -30,7 +30,7 @@ module Parser
     = AsmLiteral Int
     | AsmRegister Register
     | AsmReference Operand
-    | AsmLabel String
+    | AsmLabel ByteString
     deriving (Show, Eq)
   
   register :: Parser Operand
@@ -50,8 +50,8 @@ module Parser
   assemble :: FilePath -> Either String RAM
   assemble = undefined
   
-  identifier = undefined
-  brackets = undefined
+  identifier :: Parser ByteString
+  identifier = takeWhile1 isAlpha_ascii
   
   skipComments :: Parser ()
   skipComments = char ';' *> skipWhile (/= '\n')
