@@ -2,7 +2,7 @@
 
 module Pretty where 
   
-  import Core
+  import Core hiding ((<>))
   import Control.Applicative
   import Text.PrettyPrint
   import Text.Printf

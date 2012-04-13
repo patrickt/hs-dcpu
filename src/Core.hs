@@ -3,11 +3,15 @@ module Core
   , RAM 
   , Register (..)
   , Slots
+  , Instruction (..)
+  , Opcode (..)
+  , Operand (..)
   , module Control.Applicative
   , module Control.Monad
   , module Data.Array.Unboxed
   , module Data.Monoid
   , module Data.Word
+  , module Data.ByteString.Char8
   , (++)
   , bshow
   )
@@ -57,10 +61,28 @@ where
     show SP = "SP"
     show OF = "O"
   
+  data Opcode
+    = SET | ADD | SUB | MUL | DIV | MOD 
+    | AND | BOR | XOR | IFE | IFN | IFG | IFB
+    deriving (Show, Eq, Ord, Enum, Bounded)
+  
+  -- Since all the leaves of this ADT are different, maybe this would be a 
+  -- good place to try coproducts?
+  data Operand 
+    = AsmLiteral Int
+    | AsmRegister Register
+    | AsmReference Operand
+    | AsmLabel ByteString
+    deriving (Show, Eq)
+  
   infixr 5 ++
   (++) :: (Monoid a) => [a] -> a
   (++) = mconcat
   
   bshow :: (Show a) => a -> ByteString
   bshow = pack <$> show
+  
+  data Instruction = 
+    Instruction Opcode Operand Operand
+    deriving (Show, Eq)
   

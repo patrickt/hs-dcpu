@@ -21,7 +21,7 @@ Executable hdasm
     Build-depends: array >= 0.3,
                    attoparsec >= 0.10.1.0,
                    base >= 4.2,
-                   bytestring >= 0.9.2,
+                   bytestring >= 0.9,
                    Cabal >= 1.12,
                    checkers >= 0.2.6,
                    mtl >= 2,
@@ -41,7 +41,7 @@ Test-suite test-dcpu:
     Build-depends: array >= 0.3,
                    attoparsec >= 0.10.1.0,
                    base >= 4.2,
-                   bytestring >= 0.9.2,
+                   bytestring >= 0.9,
                    checkers >= 0.2.6,
                    Cabal >= 1.12,
                    mtl >= 2,
@@ -49,3 +49,4 @@ Test-suite test-dcpu:
                    QuickCheck >= 2.3,
                    test-framework >= 0.6,
                    test-framework-quickcheck2 >= 0.2.7
+    
