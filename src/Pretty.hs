@@ -2,7 +2,7 @@
 
 module Pretty where 
   
-  import Core hiding ((<>))
+  import Core
   import Control.Applicative
   import Text.PrettyPrint
   import Text.Printf
@@ -22,7 +22,6 @@ module Pretty where
     
   instance Pretty Register where
     pretty = text . show
-
 
   instance Pretty Slots where
     pretty slots = vcat $ go <$> [RA .. OF] where

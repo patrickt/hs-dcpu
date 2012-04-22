@@ -17,14 +17,13 @@ Executable hdasm
     Ghc-options: -fwarn-tabs -Wall
     Hs-source-dirs: src
     Main-is: dcpu.hs
-    Default-extensions:	 OverloadedStrings, TypeSynonymInstances, FlexibleInstances
+    Default-extensions: OverloadedStrings, TypeSynonymInstances, FlexibleInstances
     Build-depends: array >= 0.3,
                    attoparsec >= 0.10.1.0,
                    base >= 4.2,
                    bytestring >= 0.9,
-                   Cabal >= 1.12,
-                   checkers >= 0.2.6,
                    mtl >= 2,
+                   parsec >= 3.1,
                    pretty == 1.0.1.2,
                    QuickCheck >= 2.3,
                    test-framework >= 0.6,
@@ -42,9 +41,8 @@ Test-suite test-dcpu:
                    attoparsec >= 0.10.1.0,
                    base >= 4.2,
                    bytestring >= 0.9,
-                   checkers >= 0.2.6,
-                   Cabal >= 1.12,
                    mtl >= 2,
+                   parsec >= 3.1,
                    pretty == 1.0.1.2,
                    QuickCheck >= 2.3,
                    test-framework >= 0.6,

@@ -14,6 +14,8 @@ module Core
   , module Data.ByteString.Char8
   , (++)
   , bshow
+  , bxor
+  , emptyArray
   )
 where 
   
@@ -62,7 +64,7 @@ where
     show OF = "O"
   
   data Opcode
-    = SET | ADD | SUB | MUL | DIV | MOD 
+    = JSR | SET | ADD | SUB | MUL | DIV | MOD 
     | AND | BOR | XOR | IFE | IFN | IFG | IFB
     deriving (Show, Eq, Ord, Enum, Bounded)
   
@@ -79,10 +81,21 @@ where
   (++) :: (Monoid a) => [a] -> a
   (++) = mconcat
   
+  bxor :: Bool -> Bool -> Bool
+  bxor True True = False
+  bxor False False = False
+  bxor _ _ = True
+  
   bshow :: (Show a) => a -> ByteString
   bshow = pack <$> show
   
-  data Instruction = 
-    Instruction Opcode Operand Operand
-    deriving (Show, Eq)
+  emptyArray :: (IArray a e, Ix t, Num e) => (t, t) -> a t e
+  emptyArray minmax = array minmax [ (i, 0) | i <- range minmax ]
+  
+  data Instruction = Instruction { 
+    label :: (Maybe String),
+    op :: Opcode,
+    arga :: Operand,
+    argb :: Operand
+  } deriving (Show, Eq)
   
