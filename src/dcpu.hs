@@ -9,10 +9,12 @@ import Data.Word hiding (Word)
 import Debug.Trace
 import Text.PrettyPrint hiding (ptext)
 import Text.Printf
+import Text.Parsec
 
 import Core
 import Pretty
 import Parser
+import Assembler
 
 -- the CPU has RAM and registers 
 data CPU = CPU 

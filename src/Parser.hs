@@ -31,7 +31,7 @@ module Parser
   
   lexer = T.makeTokenParser dcpuAsm
   natural = T.natural lexer
-  ident = T.identifier lexer
+  ident = pack <$> T.identifier lexer
   brackets = T.brackets lexer
   colon = T.colon lexer
   comma = T.comma lexer
@@ -42,7 +42,7 @@ module Parser
   instruction :: Parser Instruction
   instruction = Instruction <$> label <*> (opcode <* whitespace) <*> operand <*> (comma *> operand) <?> "instruction"
 
-  label :: Parser (Maybe String)
+  label :: Parser (Maybe ByteString)
   label = optional (ident <* colon)
 
   opcode :: Parser Opcode
@@ -55,7 +55,7 @@ module Parser
   operand = choice 
     [ AsmRegister <$> register <?> "register"
     , AsmLiteral <$> fromInteger <$> natural <?> "number"
-    , AsmLabel <$> pack <$> ident <?> "label"
+    , AsmLabel <$> ident <?> "label"
     , AsmReference <$> brackets operand <?> "reference"
     ]
   
