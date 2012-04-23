@@ -1,12 +1,11 @@
 module Assembler where
   
-  import Core hiding ((!), (++))
+  import Core hiding ((!))
   import Data.Bits
   import Data.ByteString
   import Data.Map (Map, (!))
   import Data.Maybe
-  import qualified Data.Map as Map hiding ((!))
-  -- import Prelude hiding ((++))
+  import qualified Data.Map as Map
   
   isLong :: Operand -> Bool
   isLong (AsmLabel _) = True -- TODO: optional short labels
@@ -27,12 +26,6 @@ module Assembler where
   emptyText x = emptyArray (0, textLength x)
   
   type LabelMap = Map ByteString Word
-  
-  -- compileOperand :: Operand -> (Word, Maybe Word)acode = if (isNothing arest«
-  -- compileOperand (AsmRegister r) = (compileRegister r, Nothing)
-  -- compileOperand (AsmReference (AsmRegister r)) = (0x8 + compileRegister r, Nothing)
-  -- compileOperand (AsmReference (Asm ))
-  -- -- compileOperand (AsmLabel )
   
   intToWord :: Int -> Word
   intToWord n = fromInteger $ toInteger n

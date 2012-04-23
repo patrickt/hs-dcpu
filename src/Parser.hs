@@ -7,6 +7,7 @@ module Parser
   import Data.ByteString.Char8 (ByteString)
   import qualified Data.ByteString.Char8 as B
   import Text.Parsec hiding ((<|>), optional, parse, label)
+  import qualified Text.Parsec as P
   import Text.Parsec.ByteString
   import qualified Text.Parsec.Token as T
   import Text.Parsec.Language (emptyDef)
@@ -28,6 +29,8 @@ module Parser
     T.reservedOpNames = mzero,
     T.caseSensitive = False
   }
+  
+  parse = P.parse
   
   lexer = T.makeTokenParser dcpuAsm
   natural = T.natural lexer

@@ -12,7 +12,7 @@ module Core
   , module Data.Monoid
   , module Data.Word
   , module Data.ByteString.Char8
-  , (++)
+  , (<>)
   , bshow
   , bxor
   , emptyArray
@@ -77,9 +77,9 @@ where
     | AsmLabel ByteString
     deriving (Show, Eq)
   
-  infixr 5 ++
-  (++) :: (Monoid a) => [a] -> a
-  (++) = mconcat
+  infixr 5 <>
+  (<>) :: (Monoid a) => a -> a -> a
+  (<>) = mappend
   
   bxor :: Bool -> Bool -> Bool
   bxor True True = False

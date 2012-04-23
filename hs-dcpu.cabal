@@ -16,7 +16,7 @@ Cabal-version:       >= 1.10
 Executable hdasm
     Ghc-options: -fwarn-tabs -Wall
     Hs-source-dirs: src
-    Main-is: dcpu.hs
+    Main-is: Main.hs
     Default-extensions: OverloadedStrings, TypeSynonymInstances, FlexibleInstances
     Build-depends: array >= 0.3,
                    base >= 4.2,

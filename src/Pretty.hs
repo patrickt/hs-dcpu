@@ -4,7 +4,8 @@ module Pretty where
   
   import Core
   import Control.Applicative
-  import Text.PrettyPrint
+  import Text.PrettyPrint hiding ((<>))
+  import qualified Text.PrettyPrint as PP
   import Text.Printf
   
   class Pretty a where
@@ -26,3 +27,8 @@ module Pretty where
   instance Pretty Slots where
     pretty slots = vcat $ go <$> [RA .. OF] where
       go reg = pretty reg <> colon <+> pretty (slots ! reg)
+  
+  instance Monoid Doc where
+    mempty = PP.empty
+    mappend = (PP.<>)
+    
