@@ -93,7 +93,7 @@ where
   emptyArray minmax = array minmax [ (i, 0) | i <- range minmax ]
   
   data Instruction = Instruction { 
-    label :: (Maybe String),
+    label :: (Maybe ByteString),
     op :: Opcode,
     arga :: Operand,
     argb :: Operand

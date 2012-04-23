@@ -3,10 +3,10 @@
 module Parser 
   where
     
-  import Core 
+  import Core hiding (label)
   import Data.ByteString.Char8 (ByteString)
   import qualified Data.ByteString.Char8 as B
-  import Text.Parsec hiding ((<|>), optional, parse)
+  import Text.Parsec hiding ((<|>), optional, parse, label)
   import Text.Parsec.ByteString
   import qualified Text.Parsec.Token as T
   import Text.Parsec.Language (emptyDef)
@@ -61,22 +61,7 @@ module Parser
   
   program :: Parser [Instruction]
   program = sepBy1 instruction whitespace
-    -- 
-    -- assemble :: FilePath -> Either String RAM
-    -- assemble = undefined
-    -- 
-    -- identifier :: Parser ByteString
-    -- identifier = takeWhile1 isAlpha_ascii
-    -- 
-    -- skipComments :: Parser ()
-    -- skipComments = char ';' *> skipWhile (/= '\n')
-    -- 
-    -- program :: Parser [Instruction]
-    -- program = some line
-    -- 
-    -- line :: Parser Instruction
-    -- line = skipSpace *> instruction <* skipComments <* (endOfLine <|> endOfInput)
-    -- 
+  
   valueParser :: (Show a) => [a] -> Parser a
   valueParser cs = choice $ do
     let ts = map show cs
