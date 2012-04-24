@@ -25,6 +25,7 @@ Executable hdasm
                    mtl >= 2,
                    parsec >= 3.1,
                    pretty == 1.0.1.2,
+                   readline == 1.0.1.0,
                    QuickCheck >= 2.3,
                    test-framework >= 0.6,
                    test-framework-quickcheck2 >= 0.2.7
